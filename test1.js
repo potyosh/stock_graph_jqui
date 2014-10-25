@@ -1,12 +1,12 @@
 //ハイライターが0になるところのデバッグ
 //ソース整理
 //複数グラフ描画
-//y軸最小値
 //日付検索の箇所、ループつかわずにやりたい、連想配列で 
 
 var stock_data = [[]];
 
 var plot = "";//グラフ情報を記憶する配列
+var maxprice = 0;
 
 var formatDate = function (date, format) {
   if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
@@ -31,8 +31,16 @@ jQuery( function() {
       if(this[0] && this[6]){
         this[0] = formatDate(new Date(this[0]), 'YYYY/MM/DD');
         stock_data[0].push([this[0], this[6]]);
+        if( maxprice < this[6]){
+          maxprice = this[6];
+        }
       }
+
+
     });
+
+    //get margin
+    maxprice = parseInt(maxprice * 1.1, 10);
 
     plot = jQuery . jqplot(
       'jqPlot-sample',
@@ -46,7 +54,7 @@ jQuery( function() {
             },
           },
           yaxis:{
-            max : '2000'
+            max : String(maxprice)
           }
         },
         highlighter: {
@@ -89,8 +97,8 @@ jQuery( function() {
           var toolTip = $('<div />').attr("id","myTooltip")
             .addClass("jqplot-highlighter-tooltip")
             .css("position","absolute")
-            .css("left",(gridpos.x-50)+"px")
-            .css("top",(gridpos.y-50)+"px")
+            .css("left",(gridpos.x-10)+"px")
+            .css("top",(gridpos.y-10)+"px")
             .css("background","white")
             .css("padding","3px")
             .css("z-index","20")
