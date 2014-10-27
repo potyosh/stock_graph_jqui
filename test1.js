@@ -1,5 +1,3 @@
-//ハイライターが0になるところのデバッグ
-//ソース整理
 //複数グラフ描画
 //日付検索の箇所、ループつかわずにやりたい、連想配列で 
 
@@ -7,6 +5,7 @@ var stock_data = [[]];
 
 var plot = "";//グラフ情報を記憶する配列
 var maxprice = 0;
+var dict = {};
 
 var formatDate = function (date, format) {
   if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
@@ -39,6 +38,10 @@ jQuery( function() {
 
     });
 
+    //make dictionary
+    for(var i = 0; i < stock_data[0].length; i++){
+      dict[stock_data[0][i][0]] = stock_data[0][i][1]
+    }
     //get margin
     maxprice = parseInt(maxprice * 1.1, 10);
 
@@ -84,15 +87,9 @@ jQuery( function() {
       $("#myTooltip").remove();
       var date = new Date(datapos.xaxis);
       var dateStr = formatDate(new Date(date), 'YYYY/MM/DD');
-      console.debug(dateStr)
       if(neighbor){
       }else{
-        for(var i = 0; i < stock_data[0].length ; i++){
-          if(stock_data[0][i][0] == dateStr){
-            stock_price = stock_data[0][i][1];
-          }
-        }
-
+        stock_price = dict[dateStr];
         if(stock_price != 0){
           var toolTip = $('<div />').attr("id","myTooltip")
             .addClass("jqplot-highlighter-tooltip")
