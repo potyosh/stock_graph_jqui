@@ -1,9 +1,10 @@
 //複数グラフ描画
-//日付検索の箇所、ループつかわずにやりたい、連想配列で 
+//軸の合ったところでハイライト
 
 var stock_data = [[]];
 
-var plot = "";//グラフ情報を記憶する配列
+var plot = "";
+var plot2 = "";
 var maxprice = 0;
 var dict = {};
 
@@ -71,6 +72,33 @@ jQuery( function() {
           showHorizontalLine: false,
         }
       });
+
+    plot2 = jQuery . jqplot(
+      'jqPlot-sample2',
+      stock_data,
+      {
+        axes:{
+          xaxis:{
+            renderer: jQuery . jqplot . DateAxisRenderer,
+            tickOptions:{
+              formatString: '%D'
+            },
+          },
+          yaxis:{
+            max : String(maxprice)
+          }
+        },
+        highlighter: {
+          show: true,
+          showTooltip: true,
+          sizeAdjust: 7.5
+        },
+        cursor:{
+          show: true,
+          showVerticalLine: true,
+          showHorizontalLine: false,
+        }
+      });
   });
 
   /* CLICK CODE START*/
@@ -82,7 +110,7 @@ jQuery( function() {
   );
   /* CLICK CODE END*/
   $('#jqPlot-sample').bind('jqplotMouseMove', 
-    function (ev, gridpos, datapos, neighbor, plot) {
+    function (ev, gridpos, datapos, neighbor, data) {
       var stock_price = 0;
       $("#myTooltip").remove();
       var date = new Date(datapos.xaxis);
@@ -106,7 +134,7 @@ jQuery( function() {
     });
 
   $('#jqPlot-sample').bind('jqplotMouseLeave',
-    function (ev, gridpos, datapos, neighbor, plot) {
+    function (ev, gridpos, datapos, neighbor, data) {
       $("#myTooltip").remove();
   });
 });
