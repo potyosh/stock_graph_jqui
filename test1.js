@@ -1,4 +1,5 @@
-//複数グラフ描画
+//ファイルを一気に呼んでプロット
+//jenkinsでテストばんとしてチェックアウト実行
 //軸の合ったところでハイライト
 
 var stock_data = [[]];
@@ -35,8 +36,6 @@ jQuery( function() {
           maxprice = this[6];
         }
       }
-
-
     });
 
     //make dictionary
@@ -47,7 +46,7 @@ jQuery( function() {
     maxprice = parseInt(maxprice * 1.1, 10);
 
     plot = jQuery . jqplot(
-      'jqPlot-sample',
+      '9946T',
       stock_data,
       {
         axes:{
@@ -71,45 +70,19 @@ jQuery( function() {
           showVerticalLine: true,
           showHorizontalLine: false,
         }
-      });
-
-    plot2 = jQuery . jqplot(
-      'jqPlot-sample2',
-      stock_data,
-      {
-        axes:{
-          xaxis:{
-            renderer: jQuery . jqplot . DateAxisRenderer,
-            tickOptions:{
-              formatString: '%D'
-            },
-          },
-          yaxis:{
-            max : String(maxprice)
-          }
-        },
-        highlighter: {
-          show: true,
-          showTooltip: true,
-          sizeAdjust: 7.5
-        },
-        cursor:{
-          show: true,
-          showVerticalLine: true,
-          showHorizontalLine: false,
-        }
-      });
+      }
+    );
   });
 
   /* CLICK CODE START*/
-  $('#jqPlot-sample').bind('jqplotDataClick',
+  $('#9946T').bind('jqplotDataClick',
       function (ev, seriesIndex, pointIndex, data) {
       	var a = 1;                
           alert(1);
       }
   );
   /* CLICK CODE END*/
-  $('#jqPlot-sample').bind('jqplotMouseMove', 
+  $('#9946T').bind('jqplotMouseMove', 
     function (ev, gridpos, datapos, neighbor, data) {
       var stock_price = 0;
       $("#myTooltip").remove();
@@ -133,7 +106,7 @@ jQuery( function() {
       }
     });
 
-  $('#jqPlot-sample').bind('jqplotMouseLeave',
+  $('#9946T').bind('jqplotMouseLeave',
     function (ev, gridpos, datapos, neighbor, data) {
       $("#myTooltip").remove();
   });
