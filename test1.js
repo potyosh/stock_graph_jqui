@@ -26,6 +26,13 @@ var formatDate = function (date, format) {
 };
 
 jQuery( function() {
+  $.get("input_data.csv", function(file_data){
+    var input_data = Papa.parse(file_data);
+    $(input_data.data).each(function(){
+      console.log(this[1]);
+    });
+  });
+
   $.get("9946.T.csv", function(file_data){
     var parsed_data = Papa.parse(file_data);
     $(parsed_data.data).each(function(){
