@@ -8,6 +8,8 @@ var plot = "";
 var plot2 = "";
 var maxprice = 0;
 var dict = {};
+var stock_codes = [];
+var test = "9946.T";
 
 var formatDate = function (date, format) {
   if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
@@ -29,11 +31,11 @@ jQuery( function() {
   $.get("input_data.csv", function(file_data){
     var input_data = Papa.parse(file_data);
     $(input_data.data).each(function(){
-      console.log(this[1]);
+      stock_codes.push(this[1])
     });
   });
 
-  $.get("9946.T.csv", function(file_data){
+  $.get(test+".csv", function(file_data){
     var parsed_data = Papa.parse(file_data);
     $(parsed_data.data).each(function(){
       if(this[0] && this[6]){
@@ -98,6 +100,9 @@ jQuery( function() {
       if(neighbor){
       }else{
         stock_price = dict[dateStr];
+        for(i = 0; i < stock_codes.length; i++){
+          console.log(stock_codes[i]);
+        }
         if(stock_price != 0){
           var toolTip = $('<div />').attr("id","myTooltip")
             .addClass("jqplot-highlighter-tooltip")
