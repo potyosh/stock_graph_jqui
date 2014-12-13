@@ -1,0 +1,12 @@
+複数のグラフを一つのページに吐き出させる
+・機械的にjsを吐き出させる
+
+$('#jqChart1').jqChart({...});
+$('#jqChart2').jqChart({...});
+... 
+<div id="jqChart1" style="width: 400px; height: 250px;">
+</div>
+<div id="jqChart2" style="width: 400px; height: 250px;">
+</div>
+
+			
