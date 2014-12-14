@@ -9,4 +9,4 @@ $('#jqChart2').jqChart({...});
 <div id="jqChart2" style="width: 400px; height: 250px;">
 </div>
 
-			
+test1.jsからインスタンスを吐きだせさせる。そうすることで複数のグラフを描画できるとおもう。								

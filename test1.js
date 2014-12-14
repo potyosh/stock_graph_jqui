@@ -9,7 +9,7 @@ var plot2 = "";
 var maxprice = 0;
 var dict = {};
 var stock_codes = [];
-var test = "9946.T";
+var test = "9945T";
 
 var formatDate = function (date, format) {
   if (!format) format = 'YYYY-MM-DD hh:mm:ss.SSS';
@@ -54,8 +54,8 @@ jQuery( function() {
     //get margin
     maxprice = parseInt(maxprice * 1.1, 10);
 
-    plot = jQuery . jqplot(
-      '9946T',
+    plot = jQuery.jqplot(
+      test,
       stock_data,
       {
         axes:{
@@ -84,14 +84,14 @@ jQuery( function() {
   });
 
   /* CLICK CODE START*/
-  $('#9946T').bind('jqplotDataClick',
+  $('#'+test).bind('jqplotDataClick',
       function (ev, seriesIndex, pointIndex, data) {
       	var a = 1;                
           alert(1);
       }
   );
   /* CLICK CODE END*/
-  $('#9946T').bind('jqplotMouseMove', 
+  $('#'+test).bind('jqplotMouseMove', 
     function (ev, gridpos, datapos, neighbor, data) {
       var stock_price = 0;
       $("#myTooltip").remove();
@@ -118,7 +118,7 @@ jQuery( function() {
       }
     });
 
-  $('#9946T').bind('jqplotMouseLeave',
+  $('#'+test).bind('jqplotMouseLeave',
     function (ev, gridpos, datapos, neighbor, data) {
       $("#myTooltip").remove();
   });
