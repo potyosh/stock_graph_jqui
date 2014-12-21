@@ -36,7 +36,7 @@ jQuery(function() {
             stock_codes.push(this[1])
         })
     })).done(function() {
-        $(stock_codes).each(function() {
+        $(stock_codes).each(function(iFileIndex) {
             $.get(this + ".csv", function(file_data) {
                 var parsed_data = Papa.parse(file_data);
                 $(parsed_data.data).each(function() {
@@ -55,7 +55,7 @@ jQuery(function() {
                 }
                 maxprice = parseInt(maxprice * 1.1, 10);
                 plot = jQuery.jqplot(
-                    stock_codes[0],
+                    stock_codes[iFileIndex],
                     stock_data, {
                         axes: {
                             xaxis: {
@@ -81,15 +81,17 @@ jQuery(function() {
                     }
                 );
 
+                //Initialize plot data
+                stock_data = [[]];
                 /* CLICK CODE START*/
-                $('#' + stock_codes[0]).bind('jqplotDataClick',
+                $('#' + stock_codes[iFileIndex]).bind('jqplotDataClick',
                     function(ev, seriesIndex, pointIndex, data) {
                         var a = 1;
                         alert(1);
                     }
                 );
                 /* CLICK CODE END*/
-                $('#' + stock_codes[0]).bind('jqplotMouseMove',
+                $('#' + stock_codes[iFileIndex]).bind('jqplotMouseMove',
                     function(ev, gridpos, datapos, neighbor, data) {
                         var stock_price = 0;
                         $("#myTooltip").remove();
@@ -115,7 +117,7 @@ jQuery(function() {
                         }
                     });
 
-                $('#' + stock_codes[0]).bind('jqplotMouseLeave',
+                $('#' + stock_codes[iFileIndex]).bind('jqplotMouseLeave',
                     function(ev, gridpos, datapos, neighbor, data) {
                         $("#myTooltip").remove();
                     });
@@ -123,20 +125,6 @@ jQuery(function() {
             });
 
         });
-        $.get(test + ".csv", function(file_data) {
-            var parsed_data = Papa.parse(file_data);
-            $(parsed_data.data).each(function() {
-                if (this[0] && this[6]) {
-                    this[0] = formatDate(new Date(this[0]), 'YYYY/MM/DD');
-                    stock_data[0].push([this[0], this[6]]);
-                    if (maxprice < this[6]) {
-                        maxprice = this[6];
-                    }
-                }
-            });
-        })
-
-
     });
 
 
